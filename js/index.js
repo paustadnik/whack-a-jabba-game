@@ -3,6 +3,9 @@ const ctx = canvas.getContext("2d");
 
 const hidingObjects = document.querySelectorAll(".hiding-object")
 
+let points = 0;
+
+
 setInterval(() => {
     const randIndex = Math.floor(Math.random() * hidingObjects.length)
 
