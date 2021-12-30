@@ -19,8 +19,6 @@
 
 .canvas {
     position: absolute;
-
-
 }
 
 .canvasContainer {
@@ -110,7 +108,7 @@
     overflow: hidden;
 }
 
-.dune, .jabba {
+.dune, .jabba, .leia {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -123,7 +121,6 @@
     background-image: url("../images/dune2.png");
     z-index: 1;
     background-position: center 120%;
-
 }
 
 .jabba {
@@ -132,9 +129,20 @@
     top: 100%;
     background-position: bottom;
     background-size: 60%;
-    
+}
+
+.leia {
+    background-image: url("../images/Princess-Leia.png");
+    transition: all 1s ease;
+    top: 100%;
+    background-position: bottom;
+    background-size: 60%;
 }
 
 .hiding-object.active .jabba {
+    top: 0;
+}
+
+.hiding-object.active .leia {
     top: 0;
 }
