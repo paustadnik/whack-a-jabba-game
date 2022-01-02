@@ -9,12 +9,16 @@ const jabbas = document.querySelectorAll(".jabba")
 const startBtn = document.querySelector('.startBtn')
 const timerArea = document.querySelector('.scoreTimeContainer')
 const timer = document.querySelector('.timer')
+const disappointedHan = document.querySelector('.disappointedHan')
+const tryHarder = document.querySelector('.tryHarder')
+const winThatsRight = document.querySelector('.winThatsRight')
+
 
 let points = 0;
-let currentTime = 30
+let currentTime = 40
 timer.innerHTML = `00:${currentTime}`
-let doNotTry = new Image()
-doNotTry.src = 'https://c.tenor.com/_l6JIUoVnZAAAAAd/there-is-no-try-do-or-do-not.gif'
+let hasWon = false
+
 
 
 
@@ -23,6 +27,9 @@ function hideGame() {
     scoreContainer.style.visibility = 'hidden'
     timerArea.style.visibility = 'hidden'
     points = 0
+    disappointedHan.style.display = 'none'
+        tryHarder.style.display = 'none'
+        winThatsRight.style.display = 'none'
 }
 
 function startGame() {
@@ -54,10 +61,10 @@ window.onload = () => {
 }
 
 function jabbaGame() {
-    let jabbaLeiaClasses = ['leia', 'jabba']
+    let jabbaLeiaClasses = ['jabba', 'leia']
     let jabbaInterval = setInterval(() => {
         const randIndex = Math.floor(Math.random() * hidingObjects.length)
-        let index = Math.floor(Math.random() * jabbaLeiaClasses.length)
+        const index = Math.floor(Math.random() * jabbaLeiaClasses.length)
         console.log(index)
         hidingObjects.forEach((object) => {
             object.classList.remove('active')
@@ -72,7 +79,9 @@ function jabbaGame() {
             clearInterval(jabbaInterval)
             hidingObjects[randIndex].classList.remove('active')
 
-            result(points)   
+            setTimeout(() => {
+                result(points)
+            }, 1000)
         }
     
         hidingObjects.forEach((element) => {
@@ -93,21 +102,25 @@ function jabbaGame() {
 }
 
 function result(total) {
+    playField.style.display = 'none'
     if (total < 10) {
-        ctx.drawImage(doNotTry, 155, 155 )
-
-
-        ctx.globalCompositeOperation='destination-over';
-        canvas.style.zindex = 2
-        playField.style.opacity = '0.2'
+        disappointedHan.style.display = 'flex'
+        tryHarder.style.display = 'none'
+        winThatsRight.style.display = 'none'
         
     }
     else if (total >= 10 && total <= 20) {
-        console.log('Good effort!')
+        
+        disappointedHan.style.display = 'none'
+        tryHarder.style.display = 'flex'
+        winThatsRight.style.display = 'none'
     }
     else if (total > 20) {
-        console.log('The force is strong in this one')
+        disappointedHan.style.display = 'none'
+        tryHarder.style.display = 'none'
+        winThatsRight.style.display = 'flex'
     }
+    
 }
 
 startBtn.onclick = () => {
