@@ -19,6 +19,8 @@ let points = 0;
 let currentTime = 1000
 timer.innerHTML = `00:${currentTime}`
 let hasWon = false
+let saberBuzz = new Audio("../images/Saberblk.mp3")
+
 
 
 function hideGame() {
@@ -65,9 +67,14 @@ window.onload = () => {
 
 function jabbaGame() {
     let jabbaLeiaClasses = ['jabba', 'jabba', 'leia', 'jabba']
+    let previousIndex = 0
     let jabbaInterval = setInterval(() => {
-        const randIndex = Math.floor(Math.random() * hidingObjects.length)
         let index = Math.floor(Math.random() * jabbaLeiaClasses.length)
+        let randIndex = Math.floor(Math.random() * hidingObjects.length)
+        if (previousIndex === randIndex) {
+            randIndex = Math.floor(Math.random() * hidingObjects.length)
+        }
+        previousIndex = randIndex
 
         hidingObjects.forEach((object) => {
             object.classList.remove('active')
@@ -81,7 +88,7 @@ function jabbaGame() {
 
         hidingObjects[randIndex].classList.add('active')
         jabbas[randIndex].classList.add(jabbaLeiaClasses[index])
-        
+
         if (jabbaLeiaClasses[index] === 'leia') {
             hidingObjects[randIndex].classList.add('princess')
         }
@@ -101,6 +108,7 @@ function jabbaGame() {
     
         hidingObjects.forEach((element) => {
             element.onclick = () => {
+                saberBuzz.play()
                 if (element.classList.contains('hutt')) {
                     console.log('You clicked!')
                     points++
