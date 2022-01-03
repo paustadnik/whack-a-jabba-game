@@ -13,14 +13,16 @@ const disappointedHan = document.querySelector('.disappointedHan')
 const tryHarder = document.querySelector('.tryHarder')
 const winThatsRight = document.querySelector('.winThatsRight')
 const playAgainBtn = document.querySelector('.playAgainBtn')
+const gameTitleImg = document.querySelector('.gameTitleImg')
 
 
 let points = 0;
-let currentTime = 1000
+let currentTime = 10
 timer.innerHTML = `00:${currentTime}`
 let hasWon = false
-let saberBuzz = new Audio("../images/Saberblk.mp3")
 
+let saberBuzz = new Audio('../images/Saberblk.mp3')
+saberBuzz.crossOrigin = 'anonymous'
 
 
 function hideGame() {
@@ -43,6 +45,7 @@ function startGame() {
     disappointedHan.style.display = 'none'
     tryHarder.style.display = 'none'
     winThatsRight.style.display = 'none'
+    gameTitleImg.style.width = '25%'
 }
 
 function countdown() {
