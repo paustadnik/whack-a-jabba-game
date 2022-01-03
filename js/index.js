@@ -12,36 +12,39 @@ const timer = document.querySelector('.timer')
 const disappointedHan = document.querySelector('.disappointedHan')
 const tryHarder = document.querySelector('.tryHarder')
 const winThatsRight = document.querySelector('.winThatsRight')
+const playAgainBtn = document.querySelector('.playAgainBtn')
 
 
 let points = 0;
-let currentTime = 40
+let currentTime = 1000
 timer.innerHTML = `00:${currentTime}`
 let hasWon = false
 
 
-
-
 function hideGame() {
-    playField.style.visibility = 'hidden'
+    playAgainBtn.style.visibility = 'hidden'
+    playField.style.display = 'none'
     scoreContainer.style.visibility = 'hidden'
     timerArea.style.visibility = 'hidden'
-    points = 0
     disappointedHan.style.display = 'none'
-        tryHarder.style.display = 'none'
-        winThatsRight.style.display = 'none'
+    tryHarder.style.display = 'none'
+    winThatsRight.style.display = 'none'
+    
 }
 
 function startGame() {
-    playField.style.visibility = 'visible'
+    startBtn.style.visibility = 'hidden'
+    playAgainBtn.style.visibility = 'hidden'
+    playField.style.display = 'flex'
     scoreContainer.style.visibility = 'visible'
     timerArea.style.visibility = 'visible'
-    startBtn.style.visibility = 'hidden'
+    disappointedHan.style.display = 'none'
+    tryHarder.style.display = 'none'
+    winThatsRight.style.display = 'none'
 }
 
 function countdown() {
     let timeInterval = setInterval(() => {
-        console.log(currentTime)
         currentTime -= 1
         if (currentTime < 10) {
             timer.innerHTML = `00:0${currentTime}`
@@ -61,41 +64,52 @@ window.onload = () => {
 }
 
 function jabbaGame() {
-    let jabbaLeiaClasses = ['jabba', 'leia']
+    let jabbaLeiaClasses = ['jabba', 'jabba', 'leia', 'jabba']
     let jabbaInterval = setInterval(() => {
         const randIndex = Math.floor(Math.random() * hidingObjects.length)
-        const index = Math.floor(Math.random() * jabbaLeiaClasses.length)
-        console.log(index)
+        let index = Math.floor(Math.random() * jabbaLeiaClasses.length)
+
         hidingObjects.forEach((object) => {
             object.classList.remove('active')
-        });
+            object.classList.remove('princess')
+            object.classList.remove('hutt')
+        })
+
         jabbas.forEach((object) => {
-            object.classList.remove('jabba')
             object.classList.remove('leia')
         })
+
         hidingObjects[randIndex].classList.add('active')
         jabbas[randIndex].classList.add(jabbaLeiaClasses[index])
+        
+        if (jabbaLeiaClasses[index] === 'leia') {
+            hidingObjects[randIndex].classList.add('princess')
+        }
+
+        if (jabbaLeiaClasses[index] === 'jabba') {
+            hidingObjects[randIndex].classList.add('hutt')
+        }
+
         if (currentTime === 0) {
             clearInterval(jabbaInterval)
             hidingObjects[randIndex].classList.remove('active')
 
             setTimeout(() => {
                 result(points)
-            }, 1000)
+            }, 500)
         }
     
         hidingObjects.forEach((element) => {
             element.onclick = () => {
-                if (element.classList.contains('active')) {
+                if (element.classList.contains('hutt')) {
                     console.log('You clicked!')
                     points++
                 }
-                if (element.classList.contains('leia')) {
+                if (element.classList.contains('princess')) {
                     console.log('Oh no! You hit Leia!')
                     points -= 3
                 }
                 score.innerHTML = points
-
             }
         })
     }, 1100)
@@ -103,6 +117,8 @@ function jabbaGame() {
 
 function result(total) {
     playField.style.display = 'none'
+    playAgainBtn.style.visibility = 'visible'
+
     if (total < 10) {
         disappointedHan.style.display = 'flex'
         tryHarder.style.display = 'none'
@@ -110,7 +126,6 @@ function result(total) {
         
     }
     else if (total >= 10 && total <= 20) {
-        
         disappointedHan.style.display = 'none'
         tryHarder.style.display = 'flex'
         winThatsRight.style.display = 'none'
@@ -120,13 +135,25 @@ function result(total) {
         tryHarder.style.display = 'none'
         winThatsRight.style.display = 'flex'
     }
-    
+}
+
+function playAgain() {
+    points = 0
+    score.innerHTML = points
+    currentTime = 30
+    startGame()
+    countdown()
+    jabbaGame()
 }
 
 startBtn.onclick = () => {
     startGame()
     countdown()
     jabbaGame()
+}
+
+playAgainBtn.onclick = () => {
+    playAgain()
 }
 
 
