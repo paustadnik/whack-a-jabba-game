@@ -15,6 +15,7 @@ const winThatsRight = document.querySelector('.winThatsRight')
 const playAgainBtn = document.querySelector('.playAgainBtn')
 const gameTitleImg = document.querySelector('.gameTitleImg')
 const nameInputContainer = document.querySelector('.nameInputContainer')
+const nameInputBtn = document.querySelector('.nameInputBtn')
 
 
 let points = 0;
@@ -22,8 +23,7 @@ let currentTime = 30
 timer.innerHTML = `00:${currentTime}`
 let hasWon = false
 
-let saberBuzz = new Audio()
-saberBuzz.src = '../images/Saberblk.mp3'
+let saberBuzz = new Audio("../images/Saberblk.mp3")
 
 function hideGame() {
     playAgainBtn.style.visibility = 'hidden'
