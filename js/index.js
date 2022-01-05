@@ -16,14 +16,20 @@ const playAgainBtn = document.querySelector('.playAgainBtn')
 const gameTitleImg = document.querySelector('.gameTitleImg')
 const nameInputContainer = document.querySelector('.nameInputContainer')
 const nameInputBtn = document.querySelector('.nameInputBtn')
+const nameInput = document.querySelector('.nameInput')
+const scoreListContainer = document.querySelector('.scoreListContainer')
+const scoreList = document.querySelector('.scoreList')
 
 
 let points = 0;
-let currentTime = 30
+let currentTime = 10
 timer.innerHTML = `00:${currentTime}`
+let name = ''
 let hasWon = false
+let scoreArray = JSON.parse(localStorage.getItem("scores"))
 
-let saberBuzz = new Audio("../images/Saberblk.mp3")
+
+let saberBuzz = new Audio("../images/saberblk.mp3")
 
 function hideGame() {
     playAgainBtn.style.visibility = 'hidden'
@@ -33,7 +39,8 @@ function hideGame() {
     disappointedHan.style.display = 'none'
     tryHarder.style.display = 'none'
     winThatsRight.style.display = 'none'
-    nameInputContainer.style.display = 'none'
+    //nameInputContainer.style.display = 'none'
+    //scoreListContainer.style.display = 'none'
 }
 
 function startGame() {
@@ -103,9 +110,11 @@ function jabbaGame() {
         if (currentTime === 0) {
             clearInterval(jabbaInterval)
             hidingObjects[randIndex].classList.remove('active')
+            
 
             setTimeout(() => {
-                result(points)
+                //result(points)
+                saveScore(points, name)
             }, 500)
         }
     
@@ -114,17 +123,15 @@ function jabbaGame() {
                 saberBuzz.play()
                 saberBuzz.volume = 0.3
                 if (element.classList.contains('hutt')) {
-                    console.log('You clicked!')
                     points++
                 }
                 if (element.classList.contains('princess')) {
-                    console.log('Oh no! You hit Leia!')
                     points -= 3
                 }
                 score.innerHTML = points
             }
         })
-    }, 1100)
+    }, 900)
 }
 
 function result(total) {
@@ -148,6 +155,54 @@ function result(total) {
         winThatsRight.style.display = 'flex'
     }
 }
+
+function saveScore(total) {
+    playField.style.display = 'none'
+
+    nameInputBtn.onclick = () => {
+        if (nameInput.value) {
+            name = nameInput.value.toUpperCase()
+            console.log(name)
+            nameInputContainer.style.display = 'none'
+        }
+        scoreArray.push({name: name, score: points})
+        localStorage.setItem("scores", JSON.stringify(scoreArray))
+        createScoreList(scoreArray)
+    }
+    
+}
+
+function createScore(total, name) {
+    const scoreListElement = document.createElement('li')
+    scoreListElement.innerHTML = `${name}: ${total}`
+    scoreListElement.classList.add('scoreListElement')
+    scoreList.appendChild(scoreListElement)
+}
+
+function createScoreList(scores) {
+    scoreList.innerHTML = ''
+    let topThreeScores = []
+    scores.sort((score1, score2) => score2.score - score1.score)
+    for (i=0; i<3; i++){
+        if (scoreArray[i]) {
+            topThreeScores.push(scoreArray[i])
+        }
+    }
+    const top3Short = topThreeScores.map(scoreItem => {
+        const first3Letters = `${scoreItem.name.charAt(0)}${scoreItem.name.charAt(1)}${scoreItem.name.charAt(2)}`
+        return {
+            score: scoreItem.score,
+            name: first3Letters
+        }
+    })
+    top3Short.forEach((score) => {
+        createScore(score.score, score.name)
+    })
+
+    top3Short
+}
+
+
 
 function playAgain() {
     points = 0
