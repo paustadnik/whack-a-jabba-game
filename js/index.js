@@ -28,7 +28,7 @@ timer.innerHTML = `00:${currentTime}`
 let name = ''
 let hasWon = false
 let scoreArray = JSON.parse(localStorage.getItem("scores"))
-let saberBuzz = new Audio("https://github.com/paustadnik/whack-a-jabba-game/blob/main/saberblk.mp3")
+let saberBuzz = new Audio("./../saberblk.mp3")
 
 function hideGame() {
     canvas.style.display = 'none'
