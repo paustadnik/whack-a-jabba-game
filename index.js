@@ -23,11 +23,12 @@ const instructions = document.querySelector('.instructionsContainer')
 
 
 let points = 0;
-let currentTime = 30
+let currentTime = 3
 timer.innerHTML = `00:${currentTime}`
 let name = ''
 let hasWon = false
-let scoreArray = JSON.parse(localStorage.getItem("scores"))
+let scoreArray = JSON.parse(localStorage.getItem("scores")) || []
+
 let saberBuzz = new Audio("./saberblk.mp3")
 
 function hideGame() {
@@ -180,7 +181,6 @@ function saveScore(total) {
         localStorage.setItem("scores", JSON.stringify(scoreArray))
         createScoreList(scoreArray)
     }
-
 }
 
 function createScore(total, name) {
@@ -216,7 +216,7 @@ function createScoreList(scores) {
 function playAgain() {
     points = 0
     score.innerHTML = points
-    currentTime = 30
+    currentTime = 3
     timer.style.color = 'black'
     startGame()
     countdown()
