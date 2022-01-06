@@ -19,6 +19,7 @@ const nameInputBtn = document.querySelector('.nameInputBtn')
 const nameInput = document.querySelector('.nameInput')
 const scoreListContainer = document.querySelector('.scoreListContainer')
 const scoreList = document.querySelector('.scoreList')
+const instructions = document.querySelector('.instructionsContainer')
 
 
 let points = 0;
@@ -52,6 +53,7 @@ function startGame() {
     tryHarder.style.display = 'none'
     winThatsRight.style.display = 'none'
     gameTitleImg.style.width = '25%'
+    instructions.style.display = 'none'
 }
 
 function countdown() {
