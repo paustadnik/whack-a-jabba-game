@@ -170,7 +170,6 @@ function saveScore(total) {
     nameInputBtn.onclick = () => {
         if (nameInput.value) {
             name = nameInput.value.toUpperCase()
-            console.log(name)
             nameInputContainer.style.display = 'none'
             scoreListContainer.style.display = 'flex'
             playAgainBtn.style.visibility = 'visible'
@@ -216,6 +215,7 @@ function playAgain() {
     points = 0
     score.innerHTML = points
     currentTime = 30
+    timer.style.color = 'black'
     startGame()
     countdown()
     jabbaGame()
