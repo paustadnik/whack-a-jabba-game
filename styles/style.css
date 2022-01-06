@@ -183,6 +183,15 @@ body {
     flex-direction: column;
 }
 
+.hanText {
+    margin-top: -45px;
+    font-family: monospace;
+    color: white;
+    font-size: 24px;
+    background-color:rgba(128, 128, 123, 0.5);
+
+}
+
 .tryHarder {
     display: flex;
     justify-content: center;
@@ -221,13 +230,14 @@ body {
 }
 
 .playAgainBtnContainer {
-    margin-top: -50px;
+    margin-top: 30px;
 }
 
 .nameInputContainer,
 .scoreListContainer {
     display: flex;
     justify-content: center;
+    margin-top: 60px;
 }
 
 .nameInputBox,

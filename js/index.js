@@ -22,16 +22,15 @@ const scoreList = document.querySelector('.scoreList')
 
 
 let points = 0;
-let currentTime = 10
+let currentTime = 3
 timer.innerHTML = `00:${currentTime}`
 let name = ''
 let hasWon = false
 let scoreArray = JSON.parse(localStorage.getItem("scores"))
-
-
 let saberBuzz = new Audio("../images/saberblk.mp3")
 
 function hideGame() {
+    canvas.style.display = 'none'
     playAgainBtn.style.visibility = 'hidden'
     playField.style.display = 'none'
     scoreContainer.style.visibility = 'hidden'
@@ -39,8 +38,8 @@ function hideGame() {
     disappointedHan.style.display = 'none'
     tryHarder.style.display = 'none'
     winThatsRight.style.display = 'none'
-    //nameInputContainer.style.display = 'none'
-    //scoreListContainer.style.display = 'none'
+    nameInputContainer.style.display = 'none'
+    scoreListContainer.style.display = 'none'
 }
 
 function startGame() {
@@ -79,6 +78,7 @@ function jabbaGame() {
     let jabbaLeiaClasses = ['jabba', 'jabba', 'leia', 'jabba']
     let previousIndex = 0
     let jabbaInterval = setInterval(() => {
+
         let index = Math.floor(Math.random() * jabbaLeiaClasses.length)
         let randIndex = Math.floor(Math.random() * hidingObjects.length)
         if (previousIndex === randIndex) {
@@ -113,9 +113,18 @@ function jabbaGame() {
             
 
             setTimeout(() => {
-                //result(points)
-                saveScore(points, name)
+                result(points)
             }, 500)
+
+            setTimeout(() => {
+                timerArea.style.visibility = 'hidden'
+                scoreContainer.style.visibility = 'hidden'
+                disappointedHan.style.display = 'none'
+                tryHarder.style.display = 'none'
+                winThatsRight.style.display = 'none'
+                nameInputContainer.style.display = 'flex'
+                saveScore(points, name)
+            }, 5000)
         }
     
         hidingObjects.forEach((element) => {
@@ -136,7 +145,6 @@ function jabbaGame() {
 
 function result(total) {
     playField.style.display = 'none'
-    playAgainBtn.style.visibility = 'visible'
 
     if (total < 10) {
         disappointedHan.style.display = 'flex'
@@ -164,12 +172,14 @@ function saveScore(total) {
             name = nameInput.value.toUpperCase()
             console.log(name)
             nameInputContainer.style.display = 'none'
+            scoreListContainer.style.display = 'flex'
+            playAgainBtn.style.visibility = 'visible'
         }
         scoreArray.push({name: name, score: points})
         localStorage.setItem("scores", JSON.stringify(scoreArray))
         createScoreList(scoreArray)
     }
-    
+
 }
 
 function createScore(total, name) {
@@ -202,8 +212,6 @@ function createScoreList(scores) {
     top3Short
 }
 
-
-
 function playAgain() {
     points = 0
     score.innerHTML = points
@@ -220,6 +228,7 @@ startBtn.onclick = () => {
 }
 
 playAgainBtn.onclick = () => {
+    scoreListContainer.style.display = 'none'
     playAgain()
 }
 
