@@ -23,7 +23,7 @@ const instructions = document.querySelector('.instructionsContainer')
 
 
 let points = 0;
-let currentTime = 3
+let currentTime = 30
 timer.innerHTML = `00:${currentTime}`
 let name = ''
 let hasWon = false
@@ -169,6 +169,7 @@ function result(total) {
 
 function saveScore(total) {
     playField.style.display = 'none'
+    nameInput.value = ''
 
     nameInputBtn.onclick = () => {
         if (nameInput.value) {
@@ -216,7 +217,7 @@ function createScoreList(scores) {
 function playAgain() {
     points = 0
     score.innerHTML = points
-    currentTime = 3
+    currentTime = 30
     timer.style.color = 'black'
     startGame()
     countdown()
