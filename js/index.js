@@ -22,12 +22,12 @@ const scoreList = document.querySelector('.scoreList')
 
 
 let points = 0;
-let currentTime = 3
+let currentTime = 30
 timer.innerHTML = `00:${currentTime}`
 let name = ''
 let hasWon = false
 let scoreArray = JSON.parse(localStorage.getItem("scores"))
-let saberBuzz = new Audio("../images/saberblk.mp3")
+let saberBuzz = new Audio("../saberblk.mp3")
 
 function hideGame() {
     canvas.style.display = 'none'
