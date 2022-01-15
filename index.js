@@ -201,7 +201,7 @@ function createScoreList(scores) {
         }
     }
     const top3Short = topThreeScores.map(scoreItem => {
-        const first3Letters = `${scoreItem.name.charAt(0)}${scoreItem.name.charAt(1)}${scoreItem.name.charAt(2)}`
+        const first3Letters = `${scoreItem.name.charAt(0)}${scoreItem.name.charAt(1)}${scoreItem.name.charAt(2)}${scoreItem.name.charAt(3)}${scoreItem.name.charAt(4)}`
         return {
             score: scoreItem.score,
             name: first3Letters
